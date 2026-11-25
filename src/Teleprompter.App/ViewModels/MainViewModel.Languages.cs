@@ -48,9 +48,9 @@ public partial class MainViewModel
 
     public string ActiveLanguageSummary => _models.CanRecognize(ActiveLanguage.Code)
         ? ActiveLanguage.DisplayName
-        : $"{ActiveLanguage.DisplayName} (not downloaded)";
+        : $"{ActiveLanguage.DisplayName} (не скачан)";
 
-    public string LanguageDialogTitle => IsFirstRunPrompt ? "One quick thing" : "Language";
+    public string LanguageDialogTitle => IsFirstRunPrompt ? "Один момент" : "Язык";
 
     public string LanguageDialogText => IsFirstRunPrompt
         ? "To follow your voice while you read, TalkPrompter needs a voice pack for the language you read in. "
@@ -58,15 +58,15 @@ public partial class MainViewModel
         : "Pick the language you read your scripts in. Each language is a one time download "
           + "that runs entirely on your computer. You can switch any time.";
 
-    public string LanguageDismissText => IsFirstRunPrompt ? "Skip for now" : "Close";
+    public string LanguageDismissText => IsFirstRunPrompt ? "Пропустить" : "Закрыть";
 
     public string LanguageActionText => SelectedLanguageOption switch
     {
-        null => "Download",
-        { IsInstalled: false } option => $"Download ({option.Language.DownloadMegabytes} MB)",
-        { IsActive: true } => "Done",
+        null => "Скачать",
+        { IsInstalled: false } option => $"Скачать ({option.Language.DownloadMegabytes} МБ)",
+        { IsActive: true } => "Готово",
         // Installed but not in use yet.
-        { } option => $"Use {option.Language.EnglishName}"
+        { } option => $"Включить {option.Language.DisplayName}"
     };
 
     partial void OnActiveLanguageChanged(VoiceLanguage value)
@@ -149,7 +149,7 @@ public partial class MainViewModel
         ActiveLanguage = option.Language;
         _modelPromptDismissed = true;
         ShowModelPrompt = false;
-        StatusText = $"{option.Language.DisplayName} is ready. Press Start and read.";
+        StatusText = $"{option.Language.DisplayName} готов. Нажмите «Старт» и читайте.";
         SaveSettingsSnapshot();
     }
 
@@ -159,7 +159,7 @@ public partial class MainViewModel
         _downloadCts = cts;
         IsDownloading = true;
         DownloadProgress = 0;
-        DownloadStatus = "Starting download…";
+        DownloadStatus = "Начинаю загрузку…";
 
         try
         {

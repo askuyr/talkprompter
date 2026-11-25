@@ -35,7 +35,7 @@
                             <Border Width="56" Height="6" CornerRadius="3" Background="{DynamicResource MeterTrack}"
                                     VerticalAlignment="Center" Margin="0,0,8,0"
                                     Visibility="{Binding IsRunning, Converter={StaticResource BoolToVis}}"
-                                    ToolTip="Microphone level">
+                                    ToolTip="Уровень микрофона">
                                 <Border Width="{Binding MicLevelWidth}" MaxWidth="56" Height="6" CornerRadius="3"
                                         Background="{DynamicResource TrackingCol}" HorizontalAlignment="Left" />
                             </Border>
@@ -67,24 +67,24 @@
                     <WrapPanel>
                         <Button Content="{Binding ToggleLabel}" Style="{StaticResource PrimaryButton}"
                                 Command="{Binding ToggleCommand}" MinWidth="100" Margin="0,2,8,2"
-                                ToolTip="Start or stop voice tracking (Space)" />
-                        <Button Content="Edit script" Style="{StaticResource GhostButton}"
+                                ToolTip="Старт и стоп по пробелу" />
+                        <Button Content="Текст" Style="{StaticResource GhostButton}"
                                 Click="OnEditScript" Margin="0,2,8,2"
                                 Visibility="{Binding IsCompactToolbar, Converter={StaticResource InvBoolToVis}}"
-                                ToolTip="Open the script editor" />
+                                ToolTip="Редактор текста" />
                         <ComboBox ItemsSource="{Binding Scripts}" SelectedItem="{Binding SelectedScript}"
                                   DisplayMemberPath="Name" MinWidth="130" MaxWidth="180"
                                   VerticalAlignment="Center" Margin="0,2,8,2"
                                   Visibility="{Binding IsCompactToolbar, Converter={StaticResource InvBoolToVis}}"
-                                  ToolTip="Recent scripts - the reading position is remembered per script" />
-                        <Button Content="Top" Style="{StaticResource GhostButton}"
+                                  ToolTip="Недавние тексты, позиция запоминается" />
+                        <Button Content="В начало" Style="{StaticResource GhostButton}"
                                 Command="{Binding ResetPositionCommand}" Margin="0,2,8,2"
-                                ToolTip="Scroll back to the top of the script (Home)" />
+                                ToolTip="В начало текста (Home)" />
                         <!-- Narrow window: everything below lives in this menu instead -->
                         <ToggleButton x:Name="MenuToggle" Content="☰"
                                       Style="{StaticResource ToolToggle}" Margin="0,2,8,2"
                                       Visibility="{Binding IsCompactToolbar, Converter={StaticResource BoolToVis}}"
-                                      ToolTip="More controls" />
+                                      ToolTip="Ещё" />
                         <Popup PlacementTarget="{Binding ElementName=MenuToggle}" Placement="Top"
                                StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade"
                                IsOpen="{Binding IsChecked, ElementName=MenuToggle}">
@@ -93,60 +93,60 @@
                                 <StackPanel ButtonBase.Click="OnCompactMenuItemClicked" Width="190">
                                     <ComboBox ItemsSource="{Binding Scripts}" SelectedItem="{Binding SelectedScript}"
                                               DisplayMemberPath="Name" Margin="0,0,0,8"
-                                              ToolTip="Recent scripts" />
-                                    <Button Content="Edit script" Style="{StaticResource GhostButton}"
+                                              ToolTip="Недавние" />
+                                    <Button Content="Текст" Style="{StaticResource GhostButton}"
                                             Click="OnEditScript" HorizontalAlignment="Stretch"
                                             HorizontalContentAlignment="Left" Margin="0,0,0,6" />
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
                                         <Button Content="A-" Style="{StaticResource GhostButton}"
-                                                Click="OnFontSmaller" Margin="0,0,6,0" ToolTip="Smaller text" />
+                                                Click="OnFontSmaller" Margin="0,0,6,0" ToolTip="Меньше шрифт" />
                                         <Button Content="A+" Style="{StaticResource GhostButton}"
-                                                Click="OnFontLarger" ToolTip="Larger text" />
+                                                Click="OnFontLarger" ToolTip="Больше шрифт" />
                                     </StackPanel>
-                                    <Button Content="Mirror" Style="{StaticResource GhostButton}"
+                                    <Button Content="Зеркало" Style="{StaticResource GhostButton}"
                                             Click="OnToggleMirror" HorizontalAlignment="Stretch"
                                             HorizontalContentAlignment="Left" Margin="0,0,0,6"
-                                            ToolTip="Flip horizontally for beam-splitter glass" />
-                                    <Button Content="On top" Style="{StaticResource GhostButton}"
+                                            ToolTip="Отразить для зеркальной призмы" />
+                                    <Button Content="Поверх" Style="{StaticResource GhostButton}"
                                             Click="OnToggleTopmost" HorizontalAlignment="Stretch"
                                             HorizontalContentAlignment="Left" Margin="0,0,0,6"
-                                            ToolTip="Keep this window above all others" />
-                                    <Button Content="Camera" Style="{StaticResource GhostButton}"
+                                            ToolTip="Держать поверх всех окон" />
+                                    <Button Content="Камера" Style="{StaticResource GhostButton}"
                                             Click="OnToggleCameraMode" HorizontalAlignment="Stretch"
                                             HorizontalContentAlignment="Left" Margin="0,0,0,6"
-                                            ToolTip="Narrow always-on-top strip under your webcam" />
-                                    <Button Content="Full screen" Style="{StaticResource GhostButton}"
+                                            ToolTip="Узкая полоса под вебкамерой" />
+                                    <Button Content="Во весь экран" Style="{StaticResource GhostButton}"
                                             Click="OnToggleFullscreen" HorizontalAlignment="Stretch"
                                             HorizontalContentAlignment="Left"
-                                            ToolTip="Full screen (F11, Esc to exit)" />
+                                            ToolTip="Во весь экран (F11, Esc — выход)" />
                                 </StackPanel>
                             </Border>
                         </Popup>
                         <Button Content="A-" Style="{StaticResource GhostButton}" Click="OnFontSmaller"
-                                Margin="0,2,6,2" ToolTip="Smaller text"
+                                Margin="0,2,6,2" ToolTip="Меньше шрифт"
                                 Visibility="{Binding IsCompactToolbar, Converter={StaticResource InvBoolToVis}}" />
                         <Button Content="A+" Style="{StaticResource GhostButton}" Click="OnFontLarger"
-                                Margin="0,2,8,2" ToolTip="Larger text"
+                                Margin="0,2,8,2" ToolTip="Больше шрифт"
                                 Visibility="{Binding IsCompactToolbar, Converter={StaticResource InvBoolToVis}}" />
-                        <ToggleButton x:Name="MirrorToggle" Content="Mirror" Click="OnToggleMirror"
+                        <ToggleButton x:Name="MirrorToggle" Content="Зеркало" Click="OnToggleMirror"
                                       Style="{StaticResource ToolToggle}" Margin="0,2,8,2"
                                       Visibility="{Binding IsCompactToolbar, Converter={StaticResource InvBoolToVis}}"
-                                      ToolTip="Flip horizontally for beam-splitter glass" />
-                        <ToggleButton x:Name="TopmostToggle" Content="On top" Click="OnToggleTopmost"
+                                      ToolTip="Отразить для зеркальной призмы" />
+                        <ToggleButton x:Name="TopmostToggle" Content="Поверх" Click="OnToggleTopmost"
                                       Style="{StaticResource ToolToggle}" Margin="0,2,8,2"
                                       Visibility="{Binding IsCompactToolbar, Converter={StaticResource InvBoolToVis}}"
-                                      ToolTip="Keep this window above all others" />
-                        <ToggleButton x:Name="CameraToggle" Content="Camera" Click="OnToggleCameraMode"
+                                      ToolTip="Держать поверх всех окон" />
+                        <ToggleButton x:Name="CameraToggle" Content="Камера" Click="OnToggleCameraMode"
                                       Style="{StaticResource ToolToggle}" Margin="0,2,8,2"
                                       Visibility="{Binding IsCompactToolbar, Converter={StaticResource InvBoolToVis}}"
-                                      ToolTip="Narrow always-on-top strip at the top of the screen, right under your webcam" />
-                        <ToggleButton x:Name="FullToggle" Content="Full screen" Click="OnToggleFullscreen"
+                                      ToolTip="Узкая полоса вверху экрана, под вебкамерой" />
+                        <ToggleButton x:Name="FullToggle" Content="Во весь экран" Click="OnToggleFullscreen"
                                       Style="{StaticResource ToolToggle}" Margin="0,2,8,2"
                                       Visibility="{Binding IsCompactToolbar, Converter={StaticResource InvBoolToVis}}"
-                                      ToolTip="Full screen (F11, Esc to exit)" />
-                        <ToggleButton x:Name="SettingsToggle" Content="Settings"
+                                      ToolTip="Во весь экран (F11, Esc — выход)" />
+                        <ToggleButton x:Name="SettingsToggle" Content="Настройки"
                                       Style="{StaticResource ToolToggle}" Margin="0,2,0,2"
-                                      ToolTip="Microphone, engine, and tracking options" />
+                                      ToolTip="Микрофон, движок и отслеживание" />
                     </WrapPanel>
                 </DockPanel>
 
@@ -194,7 +194,7 @@
                                 </Style>
                             </ScrollViewer.Resources>
                             <StackPanel>
-                            <TextBlock Text="Language" Style="{StaticResource Label}" />
+                            <TextBlock Text="Язык" Style="{StaticResource Label}" />
                             <Grid Margin="0,0,0,14">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -202,73 +202,73 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{Binding ActiveLanguageSummary}" Foreground="{DynamicResource TextCol}"
                                            VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
-                                <Button Grid.Column="1" Content="Change…" Style="{StaticResource GhostButton}"
+                                <Button Grid.Column="1" Content="Сменить…" Style="{StaticResource GhostButton}"
                                         Command="{Binding OpenLanguagePickerCommand}" Click="OnOpenLanguagePicker"
                                         Padding="10,5" FontSize="11" Margin="8,0,0,0"
-                                        ToolTip="Pick the language you read in and download its voice pack" />
+                                        ToolTip="Язык чтения и голосовой пак" />
                             </Grid>
 
-                            <TextBlock Text="Theme" Style="{StaticResource Label}" />
+                            <TextBlock Text="Тема" Style="{StaticResource Label}" />
                             <ComboBox ItemsSource="{Binding ThemeChoices}" SelectedItem="{Binding SelectedThemeChoice}"
                                       Margin="0,0,0,14" />
 
-                            <TextBlock Text="Microphone" Style="{StaticResource Label}" />
+                            <TextBlock Text="Микрофон" Style="{StaticResource Label}" />
                             <ComboBox ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}"
                                       Margin="0,0,0,14" />
 
-                            <TextBlock Text="Speech engine (takes effect on next Start)" Style="{StaticResource Label}" />
+                            <TextBlock Text="Движок распознавания, со следующего старта" Style="{StaticResource Label}" />
                             <ComboBox ItemsSource="{Binding EngineChoices}" SelectedItem="{Binding SelectedEngineChoice}"
                                       Margin="0,0,0,14" />
 
-                            <TextBlock Text="Scroll smoothing" Style="{StaticResource Label}" />
+                            <TextBlock Text="Плавность прокрутки" Style="{StaticResource Label}" />
                             <Slider Minimum="0.12" Maximum="0.9" Value="{Binding ScrollSmoothness}"
                                     Margin="0,0,0,14" />
 
-                            <TextBlock Text="Tracking sensitivity (higher = follows through mistakes)"
+                            <TextBlock Text="Чувствительность: выше — терпимее к ошибкам"
                                        Style="{StaticResource Label}" />
                             <Slider Minimum="0" Maximum="1" Value="{Binding Sensitivity}"
                                     Margin="0,0,0,14" />
 
-                            <TextBlock Text="Column width (narrow hides eye movement on camera)"
+                            <TextBlock Text="Ширина колонки: уже — меньше движений глаз"
                                        Style="{StaticResource Label}" />
                             <Slider Minimum="360" Maximum="1600" Value="{Binding ColumnWidth}"
                                     Margin="0,0,0,14" />
 
-                            <CheckBox Content="3-2-1 countdown on Start"
+                            <CheckBox Content="Отсчёт 3-2-1 перед стартом"
                                       IsChecked="{Binding CountdownEnabled}"
                                       Foreground="{DynamicResource TextCol}" Margin="0,0,0,8" />
-                            <CheckBox Content="Reload the script when its file changes (Word sync)"
+                            <CheckBox Content="Перечитывать файл при изменении"
                                       IsChecked="{Binding FollowFileChanges}"
                                       Foreground="{DynamicResource TextCol}" Margin="0,0,0,8" />
-                            <CheckBox Content="Show recognized words (debug strip)"
+                            <CheckBox Content="Показывать распознанные слова"
                                       IsChecked="{Binding ShowHeardText}"
                                       Foreground="{DynamicResource TextCol}" Margin="0,0,0,8" />
-                            <CheckBox Content="Flow mode - glide through short pauses (experimental)"
+                            <CheckBox Content="Режим потока вместо пауз"
                                       IsChecked="{Binding FlowModeEnabled}"
                                       Foreground="{DynamicResource TextCol}" Margin="0,0,0,8" />
-                            <CheckBox Content="Simulation mode (no microphone)"
+                            <CheckBox Content="Симуляция без микрофона"
                                       IsChecked="{Binding ForceSimulation}"
                                       Foreground="{DynamicResource TextCol}" Margin="0,0,0,10" />
 
                             <TextBlock Text="{Binding EngineDescription}" Foreground="{DynamicResource Muted}"
                                        FontSize="11" TextWrapping="Wrap" Margin="0,0,0,6" />
                             <TextBlock Foreground="{DynamicResource Muted}" FontSize="11" TextWrapping="Wrap" Margin="0,0,0,6"
-                                       Text="Tip: use Camera mode and place the strip as close to your webcam as possible. The shorter the gaze distance, the less eye movement your viewers see." />
+                                       Text="Совет: включите «Камеру» и поставьте полосу как можно ближе к вебкамере. Чем короче путь взгляда, тем меньше движений глаз видят зрители." />
                             <TextBlock Foreground="{DynamicResource Muted}" FontSize="11" TextWrapping="Wrap"
-                                       Text="Shortcuts: Space = start/stop. Ctrl+Alt+Space works from any app. Home = back to top. PageUp/PageDown = nudge 8 words. Ctrl+PageUp/PageDown = jump paragraphs. Click any word to re-anchor. F11 = full screen." />
+                                       Text="Пробел — старт и стоп. Ctrl+Alt+Space работает из любого приложения. Home — в начало. PageUp/PageDown — на восемь слов. Ctrl+PageUp/PageDown — по абзацам. Клик по слову — новая позиция. F11 — во весь экран." />
 
                             <Border Height="1" Background="{DynamicResource BorderCol}" Margin="0,12,0,10" />
 
-                            <CheckBox Content="Check for updates automatically on start"
+                            <CheckBox Content="Проверять обновления при запуске"
                                       IsChecked="{Binding AutoUpdateCheckEnabled}"
                                       Foreground="{DynamicResource TextCol}" Margin="0,0,0,8" />
                             <TextBlock Text="{Binding UpdateStatus}" Foreground="{DynamicResource Muted}"
                                        FontSize="11" TextWrapping="Wrap" Margin="0,0,0,6"
                                        Visibility="{Binding UpdateStatus, Converter={StaticResource NonEmptyToVis}}" />
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                                <Button Content="Check for updates" Style="{StaticResource GhostButton}"
+                                <Button Content="Проверить обновления" Style="{StaticResource GhostButton}"
                                         Command="{Binding CheckUpdatesCommand}" Padding="10,5" FontSize="11" />
-                                <Button Content="Restart into update" Style="{StaticResource PrimaryButton}"
+                                <Button Content="Перезапустить и обновить" Style="{StaticResource PrimaryButton}"
                                         Command="{Binding RestartUpdateCommand}" Padding="10,5" FontSize="11"
                                         Margin="8,0,0,0"
                                         Visibility="{Binding UpdateReady, Converter={StaticResource BoolToVis}}" />
@@ -279,7 +279,7 @@
                                            VerticalAlignment="Center">
                                     <Run Text="TalkPrompter " /><Run Text="{Binding AppVersion, Mode=OneWay}" />
                                 </TextBlock>
-                                <Button Content="Open settings folder" Style="{StaticResource GhostButton}"
+                                <Button Content="Папка настроек" Style="{StaticResource GhostButton}"
                                         Command="{Binding OpenSettingsFolderCommand}"
                                         HorizontalAlignment="Right" Padding="10,5" FontSize="11" />
                             </Grid>
@@ -356,19 +356,19 @@
                     <DockPanel Margin="16">
                         <Grid DockPanel.Dock="Top" Margin="0,0,0,12">
                             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                                <TextBlock Text="Edit script" Foreground="{DynamicResource TextCol}"
+                                <TextBlock Text="Текст" Foreground="{DynamicResource TextCol}"
                                            FontSize="16" FontWeight="SemiBold" />
                                 <TextBlock Text="{Binding EstimatedDuration}" Foreground="{DynamicResource Muted}"
                                            FontSize="11" Margin="0,2,0,0" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Content="New" Style="{StaticResource GhostButton}"
+                                <Button Content="Новый" Style="{StaticResource GhostButton}"
                                         Command="{Binding NewScriptCommand}" Margin="0,0,8,0"
-                                        ToolTip="Start a new empty script (the current one stays in Recent)" />
-                                <Button Content="Load file" Style="{StaticResource GhostButton}"
+                                        ToolTip="Новый пустой текст" />
+                                <Button Content="Открыть" Style="{StaticResource GhostButton}"
                                         Command="{Binding LoadFileCommand}"
-                                        ToolTip="Load a script from a Word document (.docx) or text file (.txt)" />
-                                <Button Content="Done" Style="{StaticResource PrimaryButton}"
+                                        ToolTip="Загрузить .docx или .txt" />
+                                <Button Content="Готово" Style="{StaticResource PrimaryButton}"
                                         Click="OnDoneEditing" Padding="18,8" Margin="8,0,0,0" />
                             </StackPanel>
                         </Grid>
@@ -394,7 +394,7 @@
                         <TextBlock Foreground="{DynamicResource Muted}" FontSize="13" TextWrapping="Wrap"
                                    Margin="0,10,0,18" Text="{Binding LanguageDialogText}" />
 
-                        <TextBlock Text="Language" Style="{StaticResource Label}" />
+                        <TextBlock Text="Язык" Style="{StaticResource Label}" />
                         <ComboBox ItemsSource="{Binding LanguageOptions}" SelectedItem="{Binding SelectedLanguageOption}"
                                   IsEnabled="{Binding CanPickLanguage}"
                                   MaxDropDownHeight="360" Margin="0,0,0,16" />
@@ -409,9 +409,9 @@
                         <Grid>
                             <Button Content="{Binding LanguageDismissText}" Style="{StaticResource GhostButton}"
                                     Command="{Binding DismissLanguagePickerCommand}" HorizontalAlignment="Left"
-                                    ToolTip="You can pick a language later in Settings. Without a voice pack the app runs in simulation mode." />
+                                    ToolTip="Язык можно выбрать позже в настройках. Без голосового пака программа работает в режиме симуляции." />
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Content="Cancel" Style="{StaticResource GhostButton}"
+                                <Button Content="Отмена" Style="{StaticResource GhostButton}"
                                         Command="{Binding CancelDownloadCommand}" Margin="0,0,8,0"
                                         Visibility="{Binding IsDownloading, Converter={StaticResource BoolToVis}}" />
                                 <Button Content="{Binding LanguageActionText}" Style="{StaticResource PrimaryButton}"
@@ -429,7 +429,7 @@
                         BorderThickness="1" CornerRadius="14" Padding="26" Width="470"
                         HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel>
-                        <TextBlock Text="Update available" Foreground="{DynamicResource TextCol}"
+                        <TextBlock Text="Доступно обновление" Foreground="{DynamicResource TextCol}"
                                    FontSize="20" FontWeight="SemiBold" />
                         <TextBlock Text="{Binding UpdateVersionText}" Foreground="{DynamicResource Muted}"
                                    FontSize="13" Margin="0,4,0,12" />
@@ -445,22 +445,22 @@
                         <ProgressBar Value="{Binding UpdateDownloadProgress, Mode=OneWay}" Maximum="100"
                                      Margin="0,0,0,12"
                                      Visibility="{Binding UpdateDownloading, Converter={StaticResource BoolToVis}}" />
-                        <TextBlock Text="Downloaded. It installs when you close the app, or restart now."
+                        <TextBlock Text="Загружено. Установится при закрытии, или перезапустите сейчас."
                                    Foreground="{DynamicResource TrackingCol}" FontSize="12" Margin="0,0,0,12"
                                    Visibility="{Binding UpdateDownloaded, Converter={StaticResource BoolToVis}}" />
 
                         <Grid>
-                            <Button Content="Later" Style="{StaticResource GhostButton}"
+                            <Button Content="Позже" Style="{StaticResource GhostButton}"
                                     Command="{Binding PostponeUpdateCommand}" HorizontalAlignment="Left"
                                     Visibility="{Binding UpdateDownloaded, Converter={StaticResource InvBoolToVis}}" />
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Content="Download and install" Style="{StaticResource PrimaryButton}"
+                                <Button Content="Скачать и установить" Style="{StaticResource PrimaryButton}"
                                         Command="{Binding AcceptUpdateCommand}" MinWidth="150"
                                         Visibility="{Binding UpdateDownloaded, Converter={StaticResource InvBoolToVis}}" />
-                                <Button Content="Close" Style="{StaticResource GhostButton}"
+                                <Button Content="Закрыть" Style="{StaticResource GhostButton}"
                                         Command="{Binding CloseUpdateOverlayCommand}" Margin="0,0,8,0"
                                         Visibility="{Binding UpdateDownloaded, Converter={StaticResource BoolToVis}}" />
-                                <Button Content="Restart now" Style="{StaticResource PrimaryButton}"
+                                <Button Content="Перезапустить" Style="{StaticResource PrimaryButton}"
                                         Command="{Binding RestartUpdateCommand}" MinWidth="110"
                                         Visibility="{Binding UpdateDownloaded, Converter={StaticResource BoolToVis}}" />
                             </StackPanel>

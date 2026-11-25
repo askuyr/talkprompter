@@ -204,9 +204,9 @@ public partial class MainViewModel : ObservableObject, IDisposable
     [ObservableProperty] private bool _mirrorHorizontal;
     [ObservableProperty] private bool _forceSimulation;
     [ObservableProperty] private bool _isRunning;
-    [ObservableProperty] private string _statusText = "Ready";
+    [ObservableProperty] private string _statusText = "Готов";
     [ObservableProperty] private string _engineDescription = string.Empty;
-    [ObservableProperty] private string _trackingStateText = "Idle";
+    [ObservableProperty] private string _trackingStateText = "Ожидание";
     [ObservableProperty] private int _currentTokenIndex = -1;
     [ObservableProperty] private AudioInputDevice? _selectedDevice;
     [ObservableProperty] private string _lastHeardText = string.Empty;
@@ -341,7 +341,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
         RebuildScript();
         if (Script!.TokenCount == 0)
         {
-            StatusText = "Script is empty — open Edit script and add your text first.";
+            StatusText = "Текст пуст — откройте редактор и добавьте текст.";
             return;
         }
 
@@ -473,7 +473,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
         LastHeardText = string.Empty;
         IsRunning = false;
         StatusText = BuildTakeSummary();
-        TrackingStateText = "Idle";
+        TrackingStateText = "Ожидание";
     }
 
     /// <summary>After a real take, report its length and measured pace.</summary>
@@ -536,7 +536,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
             SelectedScript.LastTokenIndex = -1;
         }
 
-        TrackingStateText = "Idle";
+        TrackingStateText = "Ожидание";
         _firstAdvanceUtc = default;
         _wordsReadThisRun = 0;
     }
@@ -560,7 +560,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
     {
         var dialog = new OpenFileDialog
         {
-            Title = "Open script",
+            Title = "Открыть текст",
             Filter = "Scripts (*.txt;*.docx)|*.txt;*.docx|Word documents (*.docx)|*.docx|Text files (*.txt)|*.txt|All files (*.*)|*.*"
         };
 
@@ -616,7 +616,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
         {
             // Never yank the script out from under a live take.
             _pendingFileReload = true;
-            StatusText = "Script file changed — reloads when you stop.";
+            StatusText = "Файл изменён, перечитаю после остановки.";
             return;
         }
 
@@ -1128,9 +1128,9 @@ public partial class MainViewModel : ObservableObject, IDisposable
         TrackingStateText = update.State.ToString();
         StatusText = update.State switch
         {
-            TrackingState.Tracking => $"Tracking{RemainingSuffix()}",
-            TrackingState.Paused => "Paused — waiting for you",
-            TrackingState.Lost => "Lost the line — click a word to re-anchor",
+            TrackingState.Tracking => $"Читаю{RemainingSuffix()}",
+            TrackingState.Paused => "Пауза, жду вас",
+            TrackingState.Lost => "Строка потеряна, кликните слово",
             _ => StatusText
         };
     }
@@ -1143,7 +1143,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
         }
 
         string[] words = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        return "heard:  " + string.Join(' ', words.TakeLast(8)).ToLowerInvariant();
+        return "слышу:  " + string.Join(' ', words.TakeLast(8)).ToLowerInvariant();
     }
 
     /// <summary>
@@ -1161,7 +1161,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
         int remaining = total - (CurrentTokenIndex + 1);
         if (remaining <= 0)
         {
-            return " · done";
+            return " · готово";
         }
 
         double wordsPerSecond = AssumedWordsPerMinute / 60.0;

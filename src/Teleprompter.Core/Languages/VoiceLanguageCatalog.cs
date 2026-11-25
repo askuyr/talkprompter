@@ -14,6 +14,9 @@ public static class VoiceLanguageCatalog
 {
     private const string VoskModels = "https://alphacephei.com/vosk/models/";
 
+    // alphacephei.com недоступен из некоторых сетей; для русского берём зеркало
+    private const string VoskMirror = "https://github.com/kercre123/vosk-models/raw/refs/heads/main/";
+
     // Community streaming zipformer for Indonesian (MIT, adult speech), pinned
     // to one revision so the files can never change under installed apps.
     private const string IndonesianModel =
@@ -99,7 +102,7 @@ public static class VoiceLanguageCatalog
 
     private static VoiceLanguage Vosk(string code, string englishName, string nativeName, string folder, long bytes)
         => new(code, englishName, nativeName, VoicePackKind.Vosk, folder,
-            new[] { new VoicePackFile(folder + ".zip", VoskModels + folder + ".zip", bytes) });
+            new[] { new VoicePackFile(folder + ".zip", (code == "ru" ? VoskMirror : VoskModels) + folder + ".zip", bytes) });
 
     private static VoicePackFile IndonesianFile(string name, long bytes)
         => new(name, IndonesianModel + name, bytes);
